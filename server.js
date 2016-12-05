@@ -29,6 +29,23 @@ app.get('/todos/:id', function(req, res) {
     }
 });
 
+// DELETE /todos/:id
+
+app.delete('/todos/:id', function(req, res) {
+    var todoId = parseInt(req.params.id, 10);
+    var matchedId = _.findWhere(todos, { id: todoId });
+
+    if (!matchedId) {
+        res.status(404).json({ "error": "no todo found with that id" });
+    } else {
+        todos = _.without(todos, matchedId);
+        res.json(matchedId);
+    }
+
+
+
+})
+
 // POST /todos
 app.post('/todos', function(req, res) {
     var body = _.pick(req.body, 'description', 'completed');
