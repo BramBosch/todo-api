@@ -13,15 +13,28 @@ app.get('/', function(req, res) {
     res.send('Todo API Root');
 });
 
-// GET /todos?completed=true
+// GET /todos?completed=true&q=house
 app.get('/todos', function(req, res) {
     var filteredTodos = todos;
 
+
     if (_.has(req.query, 'completed') && req.query.completed === 'true') {
         filteredTodos = _.where(filteredTodos, { completed: true });
+
     } else if (_.has(req.query, 'completed') && req.query.completed === 'false') {
         filteredTodos = _.where(filteredTodos, { completed: false });
     }
+
+    if (_.has(req.query, 'q') && req.query.q.length > 0) {
+        filteredTodos = _.filter(filteredTodos, function(todo) {
+
+            return todo.description.toLowerCase().indexOf(req.query.q.toLowerCase()) > -1;
+
+        });
+
+    }
+
+
     res.json(filteredTodos);
 
 });
