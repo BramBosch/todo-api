@@ -13,9 +13,17 @@ app.get('/', function(req, res) {
     res.send('Todo API Root');
 });
 
-// GET /todos
+// GET /todos?completed=true
 app.get('/todos', function(req, res) {
-    res.json(todos);
+    var filteredTodos = todos;
+
+    if (_.has(req.query, 'completed') && req.query.completed === 'true') {
+        filteredTodos = _.where(filteredTodos, { completed: true });
+    } else if (_.has(req.query, 'completed') && req.query.completed === 'false') {
+        filteredTodos = _.where(filteredTodos, { completed: false });
+    }
+    res.json(filteredTodos);
+
 });
 // GET /todos/:id#
 app.get('/todos/:id', function(req, res) {
@@ -28,6 +36,7 @@ app.get('/todos/:id', function(req, res) {
         res.status(404).send();
     }
 });
+
 
 // DELETE /todos/:id
 
