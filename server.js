@@ -37,25 +37,6 @@ app.get('/todos', function(req, res) {
         res.status(500).send()
     });
 
-    // if (_.has(req.query, 'completed') && req.query.completed === 'true') {
-    //     filteredTodos = _.where(filteredTodos, { completed: true });
-
-    // } else if (_.has(req.query, 'completed') && req.query.completed === 'false') {
-    //     filteredTodos = _.where(filteredTodos, { completed: false });
-    // }
-
-    // if (_.has(req.query, 'q') && req.query.q.length > 0) {
-    //     filteredTodos = _.filter(filteredTodos, function(todo) {
-
-    //         return todo.description.toLowerCase().indexOf(req.query.q.toLowerCase()) > -1;
-
-    //     });
-
-    // }
-
-
-    // res.json(filteredTodos);
-
 });
 // GET /todos/:id#
 app.get('/todos/:id', function(req, res) {
